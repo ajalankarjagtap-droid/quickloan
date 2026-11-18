@@ -15,6 +15,26 @@ from .tools import llm
 
 def respond(state: QuickLoanState) -> dict:
     history = state.get("history", [])
+    messages = [SystemMessage(content=SYSTEM_PROMPT)]
+
+    for turn in history:
+        if turn["role"] == "user":
+            messages.append(HumanMessage(content=turn["content"]))
+        elif turn["role"] == "assistant":
+            messages.append(AIMessage(content=turn["content"]))
+
+
+    try:
+        result = llm.invoke(messages)
+        response_text = result.content    
+        history.append({"role": "user", "content": state["customer_message"]})
+        history.append({"role": "assistant", "content": response_text}) 
+        return {"response": response_text, "history": history} 
+    except Exception as e:
+        print(f"[QuickLoan] LLM error: {e}")
+        response_text = "I am temporarily unavailable. Please try again in a moment."
+        return {"response": response_text, "history": history}
+        
 
     # -----------------------------------------------------------------------
     # TODO 3 of 4 -- Build the message list and update history
@@ -49,5 +69,5 @@ def respond(state: QuickLoanState) -> dict:
     #
     # -----------------------------------------------------------------------
     # TODO: replace this placeholder with the implementation above
-    response_text = "TODO: implement respond()"
-    return {"response": response_text, "history": history}
+    #response_text = "TODO: implement respond()"
+   

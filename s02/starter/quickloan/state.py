@@ -12,6 +12,7 @@ from typing import TypedDict
 class QuickLoanState(TypedDict):
     customer_message: str    # the question the customer typed
     response:         str    # the answer QuickLoan will return
+    history : list[dict]
 
     # -----------------------------------------------------------------------
     # TODO 2 of 4 -- Add the history field

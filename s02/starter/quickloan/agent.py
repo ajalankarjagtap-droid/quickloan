@@ -34,8 +34,11 @@ from .state import QuickLoanState
 # ---------------------------------------------------------------------------
 # TODO: uncomment the function above, then delete these two placeholder lines
 def build_graph(checkpointer=None):
-    raise NotImplementedError("TODO 4: implement build_graph() in quickloan/agent.py")
-
+    builder = StateGraph(QuickLoanState)
+    builder.add_node("respond", respond)
+    builder.set_entry_point("respond")
+    builder.add_edge("respond", END)
+    return builder.compile(checkpointer=checkpointer)
 
 graph = build_graph()
 

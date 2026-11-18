@@ -17,14 +17,16 @@ from typing import TypedDict
 #   customer_message : str   -- the question the customer typed
 #   response         : str   -- the answer QuickLoan will return
 #
-# Pattern:
+# Pattern: Not getting this point  ?????
 #   class QuickLoanState(TypedDict):
 #       field_name: type
 #
 # ---------------------------------------------------------------------------
 
 class QuickLoanState(TypedDict):
-    pass  # TODO 3: replace this line with the two field definitions
+     
+    customer_message :str
+    response : str
 
 
 # Guard: raises at import time if the fields haven't been defined yet.
